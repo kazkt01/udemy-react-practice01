@@ -1,17 +1,28 @@
 import { ColorfulMessage } from "./components/ColorfulMessage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const App = () => {
-  console.log("--App--");
-  const [num, serNum] = useState(0);
-  const [isShowFace, setIsShowFace] = useState(true);
+  const [num, setNum] = useState(0);
+  const [isShowFace, setIsShowFace] = useState(false);
   const onClickCountUp = () => {
-    serNum((prev) => prev + 1);
+    setNum((prev) => prev + 1);
   };
   const onClickToggle = () => {
     setIsShowFace(!isShowFace);
   };
+  // ここのif分の理解がまだあまりできていない気がしている。ので復習しよう。
 
+  useEffect(() => {
+    if (num > 0) {
+      if (num % 3 === 0) {
+        isShowFace || setIsShowFace(true);
+      } else {
+        isShowFace && setIsShowFace(false);
+      }
+    }
+    console.log("--useEffect--");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [num]);
   return (
     <>
       <h1 style={{ color: "red" }}>こんにちは！</h1>
